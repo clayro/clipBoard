@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { createPortal } from 'react-dom'
 import { Box, Text, Link, VStack, Image, Modal, ModalOverlay, ModalContent,
-    ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure, AspectRatio} from '@chakra-ui/react'
+     ModalCloseButton, useDisclosure, AspectRatio} from '@chakra-ui/react'
 
 
 export function ClipBox(clip){
@@ -12,8 +12,8 @@ export function ClipBox(clip){
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     return(
-        <Box position='relative' mx='10px'my='10px'minWidth='420px' minHeight='236px' maxWidth='420px' maxHeight='236px' overflow='hidden'>
-            <Box w='100%' h='100%' bgGradient='radial(gray.900, black)'
+        <Box position='relative' maxW='450px' minH='253px' w='100%' overflow='hidden'>
+            <Box width='100%' height='100%' bgGradient='radial(gray.900, black)'
                 _before={{
                     content: '""',
                     bgImage:clip.clip.thumbnail_url,
@@ -38,7 +38,7 @@ export function ClipBox(clip){
                         {clip.clip.view_count.toLocaleString()} views
                     </Text>
                 </VStack>
-                <Box boxSize='150px' position='absolute' mx='135px' my='48px'>
+                <Box boxSize='150px' position='absolute' mx='34%' my='14%'>
                     <Image src="playButton.png"
                         h='90%'
                         w='100%'
@@ -48,12 +48,13 @@ export function ClipBox(clip){
             </Box>
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
-                <ModalContent containerProps={{paddingRight:'520px' }}>
-                        <iframe src={link}
-                            allowfullscreen="true"
-                            height="540px"
-                            width="960px">
-                        </iframe>
+                <ModalContent maxWidth='960px' overflowY='hidden'>
+                        <AspectRatio ratio={16/9}>
+                            <iframe src={link}
+                            allowFullScreen='true'
+                            /> 
+                    </AspectRatio>
+                    <ModalCloseButton />
                 </ModalContent>
             </Modal>
         </Box>

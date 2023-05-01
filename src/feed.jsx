@@ -11,21 +11,20 @@ import moment from 'moment'
 export function Feed() {
     const [id, setId] = useState('509658')
     const [dateFilter, setDateFilter] = useState('week')
-    const [endDate, setEndDate] = useState(moment().format())
-    const [startDate, setStartDate] = useState(moment(endDate).subtract(1,dateFilter).format())
     const [clips, setClips] = useState([])
     const [cursor, setCursor] = useState('')
     const [loadMore, setLoadMore] = useState(false)
     const loadToggle = () => setLoadMore(!loadMore)
     const token = import.meta.env.VITE_TOKEN
+    const endDate = moment().format()
+    const startDate = moment(endDate).subtract(1,dateFilter).format()
 
     useEffect(() => {
-        setStartDate(moment(endDate).subtract(1,dateFilter).format())
 
         const getClips = async() => {
             const response = await axios.get('https://api.twitch.tv/helix/clips?' +
                 'game_id=' + id +
-                '&started_at=' + moment(endDate).subtract(1,dateFilter).format() +
+                '&started_at=' + startDate +
                 '&ended_at=' + endDate +
                 '&first=30', {
                     headers: {
@@ -44,7 +43,7 @@ export function Feed() {
         const getClips = async() => {
             const nextPage = await axios.get('https://api.twitch.tv/helix/clips?' +
                 'game_id=' + id +
-                '&started_at=' + moment(endDate).subtract(1,dateFilter).format() +
+                '&started_at=' + startDate +
                 '&ended_at=' + endDate +
                 '&first=30' +
                 '&after=' + cursor, {
@@ -59,10 +58,11 @@ export function Feed() {
         }
         getClips()
     }, [loadMore])
+
     return (
-        <Box maxWidth="1350px" mx="auto">
+        <Box maxWidth='1400px' mx='auto'>
             <Header />
-            <Box maxWidth='900px' mx='auto'>
+            <Box maxWidth='800px' mt='5px' mx='auto' px='3%'>
                 <HStack justifyContent='space-between'>
                     <Dates startDate={startDate} endDate={endDate} dateFilter={dateFilter}/>
                     <DateFilter dateFilter={dateFilter} setDateFilter={setDateFilter}/>
@@ -71,9 +71,9 @@ export function Feed() {
             <Flex mt='20px' justifyContent='center'>
                 <SearchBar id={id} setId={setId} />
             </Flex>
-            <Flex pt='15px' d='row' wrap='wrap' justifyContent='center' overflowX='hidden'>
+            <Flex pt='20px' rowGap='15px'columnGap='15px' wrap='wrap' justifyContent='center' overflowX='hidden'>
                 {clips.map((clip) => (
-                    <ClipBox clip={clip} />
+                    <ClipBox clip={clip} key={clip.id} />
                 ))}
             </Flex>
             <Flex justifyContent='center' mt='15px'>

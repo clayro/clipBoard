@@ -1,11 +1,9 @@
 import React from 'react'
 import { Heading, Flex, Image, Box, Text } from '@chakra-ui/react'
 
-
-
 export function Header() {
     return(
-        <Flex mb='20px'>
+        <Flex >
             <Flex alignItems="center" >
                 <Box height="80x" width="80px">
                     <Image src="logo.png"
