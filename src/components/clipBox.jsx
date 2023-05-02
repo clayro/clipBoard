@@ -12,7 +12,7 @@ export function ClipBox(clip){
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     return(
-        <Box position='relative' maxW='450px' minH='253px' w='100%' overflow='hidden'>
+        <Box position='relative' mt='15px' maxW='450px' minH='253px' w='100%' overflow='hidden'>
             <Box width='100%' height='100%' bgGradient='radial(gray.900, black)'
                 _before={{
                     content: '""',

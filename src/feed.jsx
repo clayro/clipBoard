@@ -71,7 +71,7 @@ export function Feed() {
             <Flex mt='20px' justifyContent='center'>
                 <SearchBar id={id} setId={setId} />
             </Flex>
-            <Flex pt='20px' rowGap='15px'columnGap='15px' wrap='wrap' justifyContent='center' overflowX='hidden'>
+            <Flex pt='10px' columnGap='15px' wrap='wrap' justifyContent='center' overflowX='hidden'>
                 {clips.map((clip) => (
                     <ClipBox clip={clip} key={clip.id} />
                 ))}
