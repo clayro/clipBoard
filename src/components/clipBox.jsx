@@ -5,7 +5,7 @@ import { Box, Text, Link, VStack, Image, Modal, ModalOverlay, ModalContent,
 
 
 export function ClipBox(clip){
-    const link = clip.clip.embed_url + "&parent=localhost&autoplay=true"
+    const link = clip.clip.embed_url + "&parent=twitchclipboard.netlify.app&autoplay=true"
     const streamLink = "https://www.twitch.tv/" + clip.clip.broadcaster_name
     const [showModal, setShowModal] = useState(false)
     const toggleModal = () => setShowModal(!showModal)

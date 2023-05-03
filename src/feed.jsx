@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Header } from './components/header'
 import { Dates } from './components/dates'
 import { DateFilter } from './components/dateFilter'
@@ -18,15 +18,16 @@ export function Feed() {
     const token = import.meta.env.VITE_TOKEN
     const endDate = moment().format()
     const startDate = moment(endDate).subtract(1,dateFilter).format()
+    const firstRender = useRef(true) 
 
     useEffect(() => {
-
         const getClips = async() => {
             const response = await axios.get('https://api.twitch.tv/helix/clips?' +
                 'game_id=' + id +
-                '&started_at=' + startDate +
+                (dateFilter !== 'all' ? '&started_at=' + startDate : '') +
                 '&ended_at=' + endDate +
-                '&first=30', {
+                '&first=30' 
+                , {
                     headers: {
                         'Authorization': token,
                         'Client-Id': 'zbvv1etesxxc15xrmyazu82ejeya16'
@@ -40,10 +41,10 @@ export function Feed() {
     }, [dateFilter, id])
 
     useEffect(() => {
-        const getClips = async() => {
+        const getNextPage = async() => {
             const nextPage = await axios.get('https://api.twitch.tv/helix/clips?' +
                 'game_id=' + id +
-                '&started_at=' + startDate +
+                (dateFilter !== 'all' ? '&started_at=' + startDate : '') +
                 '&ended_at=' + endDate +
                 '&first=30' +
                 '&after=' + cursor, {
@@ -56,7 +57,7 @@ export function Feed() {
             setClips(clips.concat(nextPage.data.data))
             setCursor(nextPage.data.pagination.cursor)
         }
-        getClips()
+        getNextPage()
     }, [loadMore])
 
     return (

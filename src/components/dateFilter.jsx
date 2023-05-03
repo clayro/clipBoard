@@ -17,6 +17,7 @@ export function DateFilter({dateFilter, setDateFilter}) {
                 <option style={{ color: 'black' }} value='week'>Week</option>
                 <option style={{ color: 'black' }} value='month'>Month</option>
                 <option style={{ color: 'black' }} value='year'>Year</option>
+                <option style={{ color: 'black' }} value='all'>All</option>
             </Select>
         </Box>
     )
