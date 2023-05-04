@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { createPortal } from 'react-dom'
+import moment from 'moment'
 import { Box, Text, Link, VStack, Image, Modal, ModalOverlay, ModalContent,
      ModalCloseButton, useDisclosure, AspectRatio} from '@chakra-ui/react'
 
@@ -36,6 +37,9 @@ export function ClipBox(clip){
                     </Link>
                     <Text color='white' fontSize='12px'>
                         {clip.clip.view_count.toLocaleString()} views
+                    </Text>
+                    <Text color='white' fontSize='12px'>
+                        {moment(clip.clip.created_at).fromNow()}
                     </Text>
                 </VStack>
                 <Box boxSize='150px' position='absolute' mx='34%' my='14%'>

@@ -77,7 +77,7 @@ export function Feed() {
                     <ClipBox clip={clip} key={clip.id} />
                 ))}
             </Flex>
-            <Flex justifyContent='center' mt='15px'>
+            <Flex justifyContent='center' mt='25px'>
                 <Button
                     onClick={loadToggle}
                     backgroundColor='gray.900'
